@@ -1,131 +1,82 @@
-# Reverse-Engineer-Career-Roadmap
-# EaseCareer
+# EaseCareer — Reverse-Engineered Career Roadmapper
 
-### Your next chapter starts with a path.
+EaseCareer helps learners turn a target career into an actionable plan. Browse career and skill paths, follow topics and assignments, complete projects and lessons, track progress, and generate a personalized AI roadmap.
 
-EaseCareer helps learners turn career goals into clear, practical steps through structured roadmaps, hands-on assignments, project ideas, and personalized AI learning plans.
-
-🌐 **Live Website:** https://easecareer.aqua-vole-0188.chatgpt.site/
-
-## About the Project
-
-Choosing a career is only the beginning. Knowing what to learn, where to start, and what to build can be challenging.
-
-EaseCareer brings career guidance and practical learning together. Learners can explore a path, understand its topics, complete assignments, and track their progress as they develop new skills.
+**Live website:** https://easecareer.aqua-vole-0188.chatgpt.site/
 
 ## Features
 
-### Career and Skill Roadmaps
+- Explore 95 career and skill paths, including Frontend, Backend, Full Stack, Android, DevOps, AI Engineering, and Data Analysis.
+- Study roadmap topics with practical assignments, estimated effort, deliverables, and acceptance checks.
+- Browse lessons, project briefs, and guides.
+- Bookmark paths and track learning progress and notes in the browser.
+- Generate AI roadmaps from a goal, existing skills, weekly study hours, and target timeline.
+- Replan as milestones are completed; save and reopen AI roadmaps when signed in.
 
-Explore a catalog of 95 learning paths organized into:
+## Source structure
 
-- Career paths
-- Skills and technologies
-- Best practices
+```text
+.
+├── README.md                    # This guide
+├── app/                         # Pages, UI, styles, authentication, and API routes
+│   ├── api/                     # AI generation, advice, replanning, and saved roadmaps
+│   ├── easecareer.tsx           # Learning library and path views
+│   ├── roadmapper.tsx           # AI planner interface
+│   └── assignments.css          # Assignment styling
+├── components/                  # Reusable UI components
+├── lib/                         # Catalog, tasks, learning state, roadmap and AI logic
+│   ├── easecareer-catalog.ts    # Career paths, topics, lessons, projects, and guides
+│   ├── assignments.ts           # Topic-specific task steps and deliverables
+│   ├── learning.ts              # Browser progress, bookmarks, and notes
+│   ├── roadmap.ts               # Roadmap graph and progress calculations
+│   └── gemini.ts                # AI prompts and response handling
+├── db/                          # Database access and schema
+├── drizzle/                     # Database migrations
+├── public/                      # Static assets
+├── tests/                       # Automated roadmap tests
+├── docs/                        # Setup, source map, and team guidance
+├── scripts/ and build/          # Local runtime and build helpers
+├── package.json                 # Dependencies and scripts
+├── pnpm-lock.yaml               # Dependency lockfile
+└── .env.example                 # Environment variable template
+```
 
-Available paths include Frontend, Backend, Full Stack, Android, DevOps, AI Engineering, Data Analysis, and Data Engineering.
+See [`docs/SOURCE_MAP.md`](docs/SOURCE_MAP.md) to find the implementation of each feature. The ZIP includes the actual files in their original folders; the tree above is a shortened guide.
 
-### Practical Assignments
+## Tech stack
 
-Move from reading to doing with roadmap assignments that include:
+- TypeScript, React, and a Next.js-style app directory running through Vinext.
+- Cloudflare Workers for the hosted application and Cloudflare D1 for saved data.
+- Drizzle ORM and SQL migrations for database access.
+- Gemini for AI roadmap generation and milestone advice.
+- pnpm for dependency management.
 
-- Clear task instructions
-- Practice estimates
-- Completion checklists
-- Suggested next actions
+## Run locally
 
-For example, the Full Stack roadmap includes an assignment to trace a web request through the browser, DNS lookup, server, and response.
+Requires **Node.js 22.13 or newer** and **pnpm 11.25.0**.
 
-### AI Career Planner
+```sh
+pnpm install --frozen-lockfile
+cp .env.example .env.local
+pnpm dev
+```
 
-Plan your learning around:
+On Windows PowerShell, use `Copy-Item .env.example .env.local` for the copy step. Local development uses `http://localhost:5173`. The catalog and assignments work without a Gemini key; AI generation requires your own server-side key. Saved encrypted AI connections also require a stable `AI_CONNECTION_ENCRYPTION_KEY` as explained in [`docs/SETUP.md`](docs/SETUP.md). Keep `.env.local` and real credentials out of Git.
 
-- Your target career
-- Skills you already know
-- Available study hours per week
-- Your target timeline
+## Checks
 
-The planner interface includes a skill tree, milestones, practice tasks, learning estimates, and options to save or export a roadmap.
+```sh
+pnpm typecheck
+pnpm test
+pnpm build
+```
 
-Personalized generation requires an AI connection. An example roadmap is available to explore.
+For local database setup, API contracts, and migration commands, follow [`docs/SETUP.md`](docs/SETUP.md). The included source archive excludes dependencies, generated output, live credentials, and database contents.
 
-### Practice Projects
+## Deployment note
 
-Apply your skills through project briefs across Frontend, Backend, Full Stack, Data, AI, and DevOps.
-
-Example projects include:
-
-- Personal Portfolio
-- Task Tracker
-- Weather Dashboard
-- Expense Tracker API
-- URL Shortener
-- Learning Platform
-- Public Data Explorer
-- Document Assistant
-- Deployment Pipeline
-
-### Lessons and Guides
-
-Explore lesson packs and guides covering subjects such as:
-
-- Getting started with full-stack development
-- Git workflows for team projects
-- API design
-- React state management
-
-### My Learning
-
-View your learning activity in one place:
-
-- Tasks completed
-- Topics completed
-- Lessons completed
-- Saved roadmaps
-- Paths to continue learning
-
-Catalog tasks, work links, and progress are stored in the current browser. The AI planning experience also supports signed-in saved roadmaps.
-
-### Light Theme
-
-A clean, light interface keeps roadmaps, assignments, and learning resources easy to browse.
-
-## How to Use
-
-1. Open the live website.
-2. Browse the learning library and choose a path.
-3. Explore its topics and assignments.
-4. Complete practical tasks and update your progress.
-5. Build projects to apply what you learn.
-6. Visit **My Learning** to continue your journey.
-7. Use the **AI Planner** to tailor a path to your goals and schedule.
-
-## Who Is It For?
-
-- Students exploring technology careers
-- Beginners looking for a structured starting point
-- Developers learning a new skill
-- Career changers planning their next steps
-- Self-directed learners who want practical tasks and projects
-
-## Project Vision
-
-Make career development easier to navigate by connecting learning goals with manageable steps, practical work, and visible progress.
-
-## Contributing
-
-Suggestions and contributions are welcome.
-
-Open an issue to report a problem or propose an improvement. For code or content changes, submit a pull request explaining what changed and how it helps learners.
+This source was built for Sites hosting on Cloudflare Workers with D1 and hosted sign-in. Uploading it to GitHub does not deploy it. Other hosting providers require adapting the Cloudflare bindings and identity integration.
 
 ## Author
 
-**Shubham Swami**
-
-## License
-
-Refer to the repository's `LICENSE` file for usage and distribution terms. If no license file is present, no open-source license has been specified.
-
----
-
-**You bring the ambition. We help with the direction.**
+Created by **Shubham Swami**.
