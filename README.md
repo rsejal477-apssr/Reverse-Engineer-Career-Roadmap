@@ -79,4 +79,4 @@ This source was built for Sites hosting on Cloudflare Workers with D1 and hosted
 
 ## Author
 
-Created by **Shubham Swami**.
+Created by **Sejal Rai**.
